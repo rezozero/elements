@@ -129,13 +129,14 @@
   -o-transition:      @arguments;
   transition:         @arguments;
 }
-// BAD to transition over ALL propeties ! 
-//.transition(@duration:0.2s, @ease:ease-in-out) {
-//  -webkit-transition: all @duration @ease;
-//  -moz-transition: all @duration @ease;
-//  -o-transition: all @duration @ease;
-//  transition: all @duration @ease;
-//}
+/* BAD to transition over ALL propeties ! 
+.transition(@duration:0.2s, @ease:ease-in-out) {
+  -webkit-transition: all @duration @ease;
+  -moz-transition: all @duration @ease;
+  -o-transition: all @duration @ease;
+  transition: all @duration @ease;
+}
+*/
 .transition-duration(@duration: 0.2s) {
   -moz-transition-duration:    @duration;
   -webkit-transition-duration: @duration;
@@ -221,12 +222,12 @@
   column-rule-width: @columnRuleWidth;
 }
 .translate(@x:0, @y:0) {
-  .transform(~"translate(@x, @y)");
+  .transform(translate(@x, @y));
 }
 .background-clip(@argument: padding-box) {
-  -moz-background-clip: @argument;
+  -moz-background-clip:    @argument;
   -webkit-background-clip: @argument;
-  background-clip: @argument;
+  background-clip:         @argument;
 }
 .default-appearence() {
   -webkit-appearance: none;
