@@ -5,6 +5,20 @@
     More info at: http://lesselements.com
   ---------------------------------------------------*/
 
+/*
+ * Emulate display none but keep in render to enable transitions 
+ */
+.fake-display-none(){
+  display: block;
+  .opacity(0);
+  pointer-events: none;
+}
+.fake-display-block(){
+  display: block;
+  .opacity(1);
+  pointer-events: auto;
+}
+
 .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
   background: @color;
   background: -webkit-gradient(linear,
@@ -22,6 +36,7 @@
                                  @start);
   filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
 }
+
 .bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
   background: @color;
   background: -webkit-gradient(linear,
@@ -39,6 +54,7 @@
                                  rgb(@start,@start,@start));
   filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",rgb(@stop,@stop,@stop),rgb(@start,@start,@start)));
 }
+
 .bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
   border-top: solid 1px @top-color;
   border-left: solid 1px @left-color;
@@ -158,7 +174,7 @@
   column-rule-width: @columnRuleWidth;
 }
 .translate(@x:0, @y:0) {
-  .transform(translate(@x, @y));
+  .transform(~"translate(@x, @y)");
 }
 .background-clip(@argument: padding-box) {
   -moz-background-clip: @argument;
@@ -172,13 +188,33 @@
   -o-appearance: none;
 }
 .keep-image-aspect(){
-  image-rendering:optimizeSpeed;             /* Legal fallback                 */
-  image-rendering:pixellated;              /* Firefox                        */
-  image-rendering:-o-crisp-edges;            /* Opera                          */
-  image-rendering:-webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-  image-rendering:optimize-contrast;         /* CSS3 Proposed                  */
-  -ms-interpolation-mode:nearest-neighbor;   /* IE8+ */   
+  image-rendering:        optimizeSpeed;             /* Legal fallback                 */
+  image-rendering:        pixellated;                /* Firefox                        */
+  image-rendering:        -o-crisp-edges;            /* Opera                          */
+  image-rendering:        -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering:        optimize-contrast;         /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor;          /* IE8+ */   
 }
+
+.color-placeholder(@color) {
+  &::-webkit-input-placeholder { /* WebKit browsers */
+      color:@color;
+  }
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: @color;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: @color;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: @color;
+  } 
+}
+
+.touch-scroll(){
+  -webkit-overflow-scrolling: touch;
+}
+
 .clearfloat() { 
   &:after {
     display:  block;
